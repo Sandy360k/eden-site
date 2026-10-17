@@ -756,13 +756,16 @@
   // ---- The recorder's screen: "A day with Eden", frame by frame. ----
   const lcdFrame = $('lcdFrame'), crtFrame = $('crtFrame'), device = $('device');
   const kPlay = $('kPlay');
-  let idx = 0, playing = !less, timer = 0;
+  let idx = 0, playing = !less, timer = 0, firstT = 0, firstDone = false;
   function show(i, el) { el.innerHTML = D.day[i]; el.classList.remove('enter'); void el.offsetWidth; el.classList.add('enter'); }
   function go(i) { idx = (i + D.day.length) % D.day.length; show(idx, lcdFrame); blip(1400, 0.02, 'sine', 0.03); }
   function setPlaying(v) {
-    playing = v; clearInterval(timer); device.classList.toggle('playing', v);
+    playing = v; clearInterval(timer); clearTimeout(firstT); device.classList.toggle('playing', v);
     kPlay.textContent = v ? '■' : '▶'; kPlay.setAttribute('aria-label', v ? 'Pause' : 'Play'); kPlay.setAttribute('aria-pressed', String(!v));
-    if (v) timer = setInterval(() => go(idx + 1), 3600);
+    // The first frame holds 7 s (time to read it, and nothing on screen changes while the page is still settling),
+    // then the day moves on every 3.6 s.
+    if (v) firstT = setTimeout(() => { go(idx + 1); timer = setInterval(() => go(idx + 1), 3600); }, firstDone ? 3600 : 7000);
+    firstDone = true;
   }
   $('kPrev').addEventListener('click', () => { setPlaying(false); go(idx - 1); });
   $('kNext').addEventListener('click', () => { setPlaying(false); go(idx + 1); });
