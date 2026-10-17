@@ -60,16 +60,22 @@
   .btn.small { min-height: 40px; padding: 0 16px; font-size: 15px; }
   @media (max-width: 760px) { nav { display: none; } .bar .btn { margin-left: auto; } }
 
-  .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 48px; padding: 72px 0 56px; }
+  .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 48px; padding-block: 72px 56px; }
   .eyebrow { display: inline-flex; gap: 8px; align-items: center; font-size: 14px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; }
   .hero h1 { font-size: clamp(40px, 5.6vw, 68px); line-height: 1.04; margin: 14px 0 18px; font-weight: 800; }
   .hero p.lede { font-size: clamp(18px, 1.6vw, 21px); color: var(--muted); max-width: 34em; margin: 0 0 28px; }
   .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
   .note { font-size: 14px; color: var(--muted); margin-top: 14px; }
-  .orb { position: relative; aspect-ratio: 1; width: min(100%, 460px); justify-self: center; }
-  .orb::before { content: ""; position: absolute; inset: 8%; border-radius: 50%; background: radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--green) 55%, transparent) 0, color-mix(in srgb, var(--gold) 30%, transparent) 45%, transparent 70%); filter: blur(6px); }
-  .orb canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-top: 40px; gap: 16px; } .orb { width: min(80vw, 340px); order: -1; } }
+  /* The hero loop: the reel's light card colours in both themes, like the people cards below. */
+  .hero.with-film { grid-template-columns: 1fr 1.15fr; gap: 40px; }
+  .hero.with-film h1 { font-size: clamp(38px, 4.4vw, 58px); }
+  .film { position: relative; margin: 0; aspect-ratio: 16 / 9; border-radius: 28px; overflow: hidden; background: #FFF8E1; box-shadow: 0 0 0 1px var(--border), 0 30px 70px -40px rgba(60, 45, 20, 0.5); }
+  .film video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .film button { position: absolute; right: 12px; bottom: 12px; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: rgba(31, 27, 20, 0.6); color: #FFFFFF; display: grid; place-items: center; cursor: pointer; }
+  .film button[hidden] { display: none; }
+  .film button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .film svg { width: 16px; height: 16px; fill: currentColor; }
+  @media (max-width: 860px) { .hero, .hero.with-film { grid-template-columns: 1fr; padding-top: 24px; gap: 24px; } .film { order: -1; border-radius: 20px; } }
 
   section { padding: 64px 0; }
   .kicker { font-size: 14px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 8px; }
@@ -161,7 +167,7 @@
 </header>
 
 <main>
-  <div class="wrap hero">
+  <div class="wrap hero with-film">
     <div>
       <span class="eyebrow">Eden: Second Brain · by Mahi Labs</span>
       <h1>Say it once. Eden remembers it at the right place and time.</h1>
@@ -172,7 +178,11 @@
       </div>
       <p class="note">Free while in early access. Your Seeds are yours: only you can see them.</p>
     </div>
-    <div class="orb" aria-hidden="true"><canvas id="orb"></canvas></div>
+    <figure class="film">
+      <video id="film" muted loop playsinline preload="none" poster="hero-poster.webp" width="1280" height="720"
+        aria-label="A day with Eden: at 7:30 am Mahi tells Eden the shopping list; at 6:40 pm, walking past the shop, Eden brings it back and she ticks it off."></video>
+      <button type="button" id="filmToggle" hidden aria-label="Pause the video"><svg viewBox="0 0 16 16" aria-hidden="true"><path id="filmIcon" d="M4 2h3v12H4zM9 2h3v12H9z"/></svg></button>
+    </figure>
   </div>
 
   <section id="people" aria-labelledby="people-title">
@@ -329,76 +339,36 @@
 </footer>
 
 <script>
-// The orb: points on a slowly turning sphere, gold at the rim and green at the heart, as in the app, inside the
-// reel's brand ring with its three nodes (Ideas, Work, Family). Still when the visitor asks for less motion;
-// nothing at all without script (the soft glow behind it stays).
+// The hero loop: the poster shows first; the video (about 400 KB, MP4 or WebM) loads only after the page has, only while the hero is
+// on screen, and never plays by itself for visitors who ask for less motion or to save data. The button pauses and
+// plays it either way. Without script the poster stays.
 (() => {
-  const canvas = document.getElementById('orb');
-  if (!canvas || !canvas.getContext) return;
-  const ctx = canvas.getContext('2d');
-  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const N = 900, golden = Math.PI * (3 - Math.sqrt(5));
-  const pts = Array.from({ length: N }, (_, i) => {
-    const y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), t = golden * i;
-    return [Math.cos(t) * r, y, Math.sin(t) * r, 0.6 + ((i * 7919) % 100) / 250];
-  });
-  let colors;
-  let dark;
-  const readColors = () => {
-    const s = getComputedStyle(document.documentElement);
-    colors = [s.getPropertyValue('--gold').trim(), s.getPropertyValue('--green').trim()];
-    dark = matchMedia('(prefers-color-scheme: dark)').matches;
-  };
-  readColors();
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readColors(); if (still) draw(0); });
-  function size() { const d = Math.min(devicePixelRatio || 1, 2), b = canvas.getBoundingClientRect(); canvas.width = b.width * d; canvas.height = b.height * d; }
-  // A new size clears the canvas; a still orb has no next frame, so draw it again here.
-  size(); addEventListener('resize', () => { size(); if (still) draw(0); });
-  // The reel's mark: ring 114×62 around an orb of 88, tilted −0.28; nodes at these angles, in these area colours.
-  const NODES = [[3.35, '#86B7E8', '#3B7FC4'], [5.55, '#8CC7B5', '#2F8F7A'], [1.9, '#E88A7D', '#C2553F']];
-  function glow(x, y, r, c, a) {
-    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-    g.addColorStop(0, c); g.addColorStop(1, 'transparent');
-    ctx.globalAlpha = a; ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  const v = document.getElementById('film'), btn = document.getElementById('filmToggle'), icon = document.getElementById('filmIcon');
+  if (!v || !btn) return;
+  const less = matchMedia('(prefers-reduced-motion: reduce)');
+  const saveData = !!(navigator.connection && navigator.connection.saveData);
+  let wanted = !less.matches && !saveData, visible = false, chosen = false;
+  function sync() {
+    if (wanted && visible) {
+      if (!v.firstElementChild) {
+        for (const [src, type] of [['hero-loop.mp4', 'video/mp4; codecs="avc1.640028"'], ['hero-loop.webm', 'video/webm; codecs="vp9"']]) {
+          const el = document.createElement('source'); el.src = src; el.type = type; v.appendChild(el);
+        }
+        v.load();
+      }
+      v.play().catch(() => {});
+    } else v.pause();
+    btn.setAttribute('aria-label', wanted ? 'Pause the video' : 'Play the video');
+    icon.setAttribute('d', wanted ? 'M4 2h3v12H4zM9 2h3v12H9z' : 'M4 2l10 6-10 6z');
   }
-  function ring(time, R, cx, cy, front) {
-    const rx = R * 114 / 88, ry = R * 62 / 88, nr = R * 7 / 88;
-    ctx.save(); ctx.translate(cx, cy); ctx.rotate(-0.28);
-    if (!front) {
-      ctx.globalAlpha = dark ? 0.35 : 0.3; ctx.strokeStyle = colors[1]; ctx.lineWidth = Math.max(1, R / 70);
-      ctx.beginPath(); ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2); ctx.stroke();
-    }
-    for (const [at, onDark, onLight] of NODES) {
-      const ph = at + time / 14000, x = Math.cos(ph) * rx, y = Math.sin(ph) * ry;
-      if ((Math.sin(ph) > 0) !== front) continue; // behind the orb on the far side of the ring
-      const c = dark ? onDark : onLight;
-      glow(x, y, nr * 3.2, c, dark ? 0.35 : 0.45);
-      ctx.globalAlpha = 1; ctx.fillStyle = c; ctx.beginPath(); ctx.arc(x, y, nr, 0, Math.PI * 2); ctx.fill();
-      glow(x, y, nr * 0.7, '#FFFFFF', dark ? 0.6 : 0.9);
-    }
-    ctx.restore();
+  btn.addEventListener('click', () => { wanted = !wanted; chosen = true; sync(); });
+  less.addEventListener('change', () => { if (!chosen) { wanted = !less.matches && !saveData; sync(); } });
+  function start() {
+    btn.hidden = false;
+    if (!('IntersectionObserver' in window)) { visible = true; sync(); return; }
+    new IntersectionObserver((es) => { visible = es[es.length - 1].isIntersecting; sync(); }).observe(v);
   }
-  function draw(time) {
-    const w = canvas.width, h = canvas.height, R = Math.min(w, h) * 0.3, cx = w / 2, cy = h / 2;
-    ctx.clearRect(0, 0, w, h);
-    ring(time, R, cx, cy, false);
-    const a = time / 9000, ca = Math.cos(a), sa = Math.sin(a), tilt = 0.35, ct = Math.cos(tilt), st = Math.sin(tilt);
-    const breathe = 1 + Math.sin(time / 1400) * 0.015;
-    for (const [x0, y0, z0, s] of pts) {
-      const x = x0 * ca - z0 * sa, z1 = x0 * sa + z0 * ca;
-      const y = y0 * ct - z1 * st, z = y0 * st + z1 * ct;
-      const depth = (z + 1) / 2;
-      const rim = Math.sqrt(x * x + y * y);
-      ctx.globalAlpha = 0.25 + depth * 0.7;
-      ctx.fillStyle = rim > 0.72 ? colors[0] : colors[1];
-      const px = cx + x * R * breathe, py = cy + y * R * breathe, sz = (1 + depth * 2.2) * s * (w / 460);
-      ctx.fillRect(px, py, sz, sz);
-    }
-    ring(time, R, cx, cy, true);
-    ctx.globalAlpha = 1;
-    if (!still) requestAnimationFrame(draw);
-  }
-  requestAnimationFrame(draw);
+  if (document.readyState === 'complete') start(); else addEventListener('load', start);
 })();
 </script>
 </body>
