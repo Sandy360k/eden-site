@@ -26,43 +26,18 @@
   @font-face { font-family: "Fredoka"; font-weight: 300 700; font-display: swap; src: url(fredoka.woff2) format("woff2"); }
   @font-face { font-family: "JetBrains Mono"; font-weight: 100 800; font-display: swap; src: url(jetbrains-mono.woff2) format("woff2"); }
   @font-face { font-family: "Doto"; font-weight: 100 900; font-display: swap; src: url(doto.woff2) format("woff2"); }
+  /* The garden palette (light and dark) comes from the app's own tokens: src/constants/tokens.ts through
+     scripts/tokens-css.mjs, so the site, the app and the web app can't drift apart. */
+  :root { --bg: #0E1510; --bg2: #131D15; --surface: #18231A; --line: #2A3A2C; --text: #EEF1E4; --muted: #A3AE98; --accent: #A3D977; --on-accent: #14230C; --sprout: #CDEB8B; --moss: #6E9A4B; --forest: #2F5A2A; --gold: #F2B544; --bark: #8A6A4A; --ideas: #86B7E8; --work: #8CC7B5; --family: #E88A7D; --home: #F2B544; --glow-far: #F2B544; --glow-near: #A3D977; --glow-ideas: #86B7E8; --glow-work: #8CC7B5; --glow-family: #E88A7D; --cream: #EDE4CF; --cream2: #D8CCB0; --cream-edge: #B7A886; --ink: #2A2620; --paper: #FBF8F1; --rec: #E0563F; --key: #4E7D32; --key-edge: #33561F; --lcd: #0E1710; --lcd-text: #CDEFB0; --dot-a: 0.9; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --bg: #F3EEDF; --bg2: #EAE3CF; --surface: #FBF8EF; --line: #D9D0BA; --text: #1E2418; --muted: #5F6752; --accent: #3F7524; --on-accent: #FFFFFF; --sprout: #8DBB4E; --moss: #5A7F3A; --forest: #2C4A22; --gold: #B07A0C; --bark: #7A5A3A; --ideas: #3B7FC4; --work: #2F8F7A; --family: #C2553F; --home: #C98A0E; --glow-far: #C98A0E; --glow-near: #4E8A2E; --glow-ideas: #3B7FC4; --glow-work: #2F8F7A; --glow-family: #C2553F; --dot-a: 0.55; color-scheme: light; } }
+:root[data-theme="light"] { --bg: #F3EEDF; --bg2: #EAE3CF; --surface: #FBF8EF; --line: #D9D0BA; --text: #1E2418; --muted: #5F6752; --accent: #3F7524; --on-accent: #FFFFFF; --sprout: #8DBB4E; --moss: #5A7F3A; --forest: #2C4A22; --gold: #B07A0C; --bark: #7A5A3A; --ideas: #3B7FC4; --work: #2F8F7A; --family: #C2553F; --home: #C98A0E; --glow-far: #C98A0E; --glow-near: #4E8A2E; --glow-ideas: #3B7FC4; --glow-work: #2F8F7A; --glow-family: #C2553F; --dot-a: 0.55; color-scheme: light; }
   :root {
-    /* A real garden (Sandy's brand rule): night-garden dark, a greens ramp as the accent, cream-and-bark objects,
-       and the Seed colours as the flowers. Proposed for Sandy to finalise. */
-    --bg: #0E1510; --bg2: #131D15; --surface: #18231A; --line: #2A3A2C; --text: #EEF1E4; --muted: #A3AE98;
-    --accent: #A3D977; --on-accent: #14230C; --gold: #F2B544;
-    --sprout: #CDEB8B; --moss: #6E9A4B; --forest: #2F5A2A; --bark: #8A6A4A;
-    --glow-far: #F2B544; --glow-near: #A3D977; --glow-ideas: #86B7E8; --glow-work: #8CC7B5; --glow-family: #E88A7D;
-    --ideas: #86B7E8; --work: #8CC7B5; --family: #E88A7D; --home: #F2B544;
-    --dot-a: 0.9;
-    /* Things that are objects keep their colours in both themes: the recorder, the printer, the paper, the screen. */
-    --cream: #EDE4CF; --cream2: #D8CCB0; --cream-edge: #B7A886; --ink: #2A2620; --lcd: #0E1710; --lcd-text: #CDEFB0;
-    --rec: #E0563F; --key: #4E7D32; --key-edge: #33561F; --paper: #FBF8F1;
     --wm: "Fredoka"; --ds: 1; --kfs: 17px;
     --display: var(--wm), ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
     --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     --dot: "Doto", "JetBrains Mono", ui-monospace, monospace;
     --sans: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color-scheme: dark;
-  }
-  /* Light when the visitor asks for it (system setting, or an explicit data-theme on the page root). */
-  @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) {
-      --bg: #F3EEDF; --bg2: #EAE3CF; --surface: #FBF8EF; --line: #D9D0BA; --text: #1E2418; --muted: #5F6752;
-      --accent: #3F7524; --on-accent: #FFFFFF; --gold: #B07A0C;
-      --sprout: #8DBB4E; --moss: #5A7F3A; --forest: #2C4A22; --bark: #7A5A3A;
-    --glow-far: #C98A0E; --glow-near: #4E8A2E; --glow-ideas: #3B7FC4; --glow-work: #2F8F7A; --glow-family: #C2553F;
-      --glow-far: #C98A0E; --glow-near: #4E8A2E; --glow-ideas: #3B7FC4; --glow-work: #2F8F7A; --glow-family: #C2553F;
-      --ideas: #3B7FC4; --work: #2F8F7A; --family: #C2553F; --home: #C98A0E;
-      --dot-a: 0.55; color-scheme: light;
-    }
-  }
-  :root[data-theme="light"] {
-    --bg: #F3EEDF; --bg2: #EAE3CF; --surface: #FBF8EF; --line: #D9D0BA; --text: #1E2418; --muted: #5F6752;
-    --accent: #3F7524; --on-accent: #FFFFFF; --gold: #B07A0C;
-    --sprout: #8DBB4E; --moss: #5A7F3A; --forest: #2C4A22; --bark: #7A5A3A;
-    --ideas: #3B7FC4; --work: #2F8F7A; --family: #C2553F; --home: #C98A0E;
-    --dot-a: 0.55; color-scheme: light;
   }
   
   * { box-sizing: border-box; }
