@@ -113,7 +113,9 @@
   @media (max-width: 900px) { .notch nav { display: none; } }
 
   /* Halftone dot clouds (drawn once into a canvas by the script; a flat background without it). */
-  .halftone { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: var(--dot-a); }
+  /* Hidden until fully drawn, then faded in (instant with reduced motion), so it never reads as a page still painting. */
+  .halftone { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity 0.8s ease-out; }
+  .halftone.drawn { opacity: var(--dot-a); }
 
   /* ---------- Hero: the recorder ---------- */
   .stage { position: relative; }
@@ -738,7 +740,7 @@
         g.fillStyle = c; g.beginPath(); g.arc(x, y, rr, 0, 6.2832); g.fill();
       }
       }
-      if (y < h) requestAnimationFrame(rows);
+      if (y < h) requestAnimationFrame(rows); else cv.classList.add('drawn');
     })();
   }
   let dotsT = 0;
