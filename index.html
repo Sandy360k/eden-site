@@ -379,6 +379,19 @@
   .port small { color: var(--muted); font-size: 13px; }
   @media (max-width: 900px) { .ports { grid-template-columns: 1fr; } }
 
+  /* Pricing: one plate, free during early access. */
+  .plan { display: flex; flex-direction: column; gap: 12px; max-width: 520px; padding: 22px; border-radius: 22px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 6px 0 var(--bg2); }
+  .plan .spec { display: flex; justify-content: space-between; gap: 10px; }
+  .plan .spec i { font-style: normal; color: var(--text); }
+  .plan .spec i::before { content: "● "; color: var(--accent); }
+  .plan h3 { margin: 0; font-size: 28px; }
+  .plan .price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 0; }
+  .plan .price b { font: 900 52px/1 var(--dot); letter-spacing: 0.02em; color: var(--text); }
+  .plan .price span { font: 500 13px var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .plan ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; color: var(--muted); font-size: 15px; }
+  .plan li::before { content: "▸ "; color: var(--accent); }
+  .plan .row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+
   .privacy { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: start; }
   .promises { list-style: none; padding: 0; margin: 0; counter-reset: p; border-top: 1px solid var(--line); }
   .promises li { display: grid; grid-template-columns: 54px 1fr; gap: 4px 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
@@ -405,7 +418,7 @@
 <div class="top">
   <a class="brand" href="./" aria-label="Eden home"><svg class="orbmark" viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="hhdr" cx="50%" cy="50%" r="50%"><stop offset="0.45" stop-color="var(--glow-near)" stop-opacity="0.24"/><stop offset="1" stop-color="var(--glow-near)" stop-opacity="0"/></radialGradient><radialGradient id="whdr" cx="42%" cy="40%" r="62%"><stop offset="0" stop-color="var(--glow-near)"/><stop offset="1" stop-color="var(--glow-far)"/></radialGradient></defs><path d="M8.28 61.96 L8.08 60.92 L8.06 59.84 L8.22 58.71 L8.55 57.54 L9.07 56.35 L9.76 55.12 L10.62 53.88 L11.65 52.61 L12.84 51.34 L14.20 50.06 L15.70 48.78 L17.36 47.50 L19.15 46.24 L21.08 44.99 L23.13 43.76 L25.29 42.56 L27.56 41.39 L29.93 40.26 L32.38 39.17 L34.91 38.13 L37.50 37.14 L40.15 36.20 L42.84 35.32 L45.56 34.50 L48.29 33.76 L51.04 33.08 L53.78 32.47 L56.51 31.94 L59.20 31.48 L61.86 31.11 L64.47 30.81 L67.01 30.60 L69.48 30.47 L71.87 30.42 L74.17 30.46 L76.36 30.58 L78.44 30.79 L80.39 31.08 L82.22 31.44 L83.91 31.89 L85.45 32.42 L86.84 33.02 L88.08 33.69 L89.15 34.43 L90.05 35.24 L90.78 36.12 L91.34 37.05 L91.72 38.04" fill="none" stroke="var(--glow-near)" stroke-opacity="0.6" stroke-width="3.2" stroke-linecap="round"/><circle cx="50" cy="50" r="49.5" fill="url(#hhdr)"/><circle cx="50" cy="50" r="31" fill="url(#whdr)" fill-opacity="0.14"/><circle cx="72.41" cy="59.09" r="1.81" fill="color-mix(in srgb, var(--glow-near) 38%, var(--glow-far))" fill-opacity="1.00"/><circle cx="38.73" cy="28.63" r="1.85" fill="color-mix(in srgb, var(--glow-near) 40%, var(--glow-far))" fill-opacity="1.00"/><circle cx="31.67" cy="34.32" r="1.87" fill="color-mix(in srgb, var(--glow-near) 42%, var(--glow-far))" fill-opacity="1.00"/><circle cx="58.48" cy="72.45" r="1.93" fill="color-mix(in srgb, var(--glow-near) 45%, var(--glow-far))" fill-opacity="1.00"/><circle cx="26.58" cy="54.69" r="1.96" fill="color-mix(in srgb, var(--glow-near) 46%, var(--glow-far))" fill-opacity="1.00"/><circle cx="28.12" cy="41.59" r="2.04" fill="color-mix(in srgb, var(--glow-near) 52%, var(--glow-far))" fill-opacity="1.00"/><circle cx="54.14" cy="27.06" r="2.06" fill="color-mix(in srgb, var(--glow-near) 53%, var(--glow-far))" fill-opacity="1.00"/><circle cx="70.59" cy="39.25" r="2.07" fill="color-mix(in srgb, var(--glow-near) 53%, var(--glow-far))" fill-opacity="1.00"/><circle cx="62.70" cy="30.59" r="2.08" fill="color-mix(in srgb, var(--glow-near) 54%, var(--glow-far))" fill-opacity="1.00"/><circle cx="45.12" cy="72.46" r="2.10" fill="color-mix(in srgb, var(--glow-near) 55%, var(--glow-far))" fill-opacity="1.00"/><circle cx="30.74" cy="62.07" r="2.13" fill="color-mix(in srgb, var(--glow-near) 57%, var(--glow-far))" fill-opacity="1.00"/><circle cx="72.67" cy="48.68" r="2.13" fill="color-mix(in srgb, var(--glow-near) 57%, var(--glow-far))" fill-opacity="1.00"/><circle cx="65.87" cy="66.17" r="2.14" fill="color-mix(in srgb, var(--glow-near) 58%, var(--glow-far))" fill-opacity="1.00"/><circle cx="42.41" cy="28.91" r="2.16" fill="color-mix(in srgb, var(--glow-near) 59%, var(--glow-far))" fill-opacity="1.00"/><circle cx="70.81" cy="57.90" r="2.18" fill="color-mix(in srgb, var(--glow-near) 60%, var(--glow-far))" fill-opacity="1.00"/><circle cx="50.00" cy="27.92" r="2.19" fill="color-mix(in srgb, var(--glow-near) 61%, var(--glow-far))" fill-opacity="1.00"/><circle cx="37.55" cy="68.19" r="2.20" fill="color-mix(in srgb, var(--glow-near) 61%, var(--glow-far))" fill-opacity="1.00"/><circle cx="55.19" cy="70.77" r="2.25" fill="color-mix(in srgb, var(--glow-near) 65%, var(--glow-far))" fill-opacity="1.00"/><circle cx="28.64" cy="49.36" r="2.25" fill="color-mix(in srgb, var(--glow-near) 65%, var(--glow-far))" fill-opacity="1.00"/><circle cx="34.67" cy="35.49" r="2.27" fill="color-mix(in srgb, var(--glow-near) 66%, var(--glow-far))" fill-opacity="1.00"/><circle cx="65.19" cy="36.94" r="2.34" fill="color-mix(in srgb, var(--glow-near) 71%, var(--glow-far))" fill-opacity="1.00"/><circle cx="56.54" cy="32.26" r="2.40" fill="color-mix(in srgb, var(--glow-near) 75%, var(--glow-far))" fill-opacity="1.00"/><circle cx="33.00" cy="56.73" r="2.43" fill="color-mix(in srgb, var(--glow-near) 77%, var(--glow-far))" fill-opacity="1.00"/><circle cx="67.69" cy="46.83" r="2.44" fill="color-mix(in srgb, var(--glow-near) 78%, var(--glow-far))" fill-opacity="1.00"/><circle cx="60.91" cy="64.27" r="2.44" fill="color-mix(in srgb, var(--glow-near) 78%, var(--glow-far))" fill-opacity="1.00"/><circle cx="48.23" cy="67.70" r="2.45" fill="color-mix(in srgb, var(--glow-near) 78%, var(--glow-far))" fill-opacity="1.00"/><circle cx="33.94" cy="43.03" r="2.46" fill="color-mix(in srgb, var(--glow-near) 79%, var(--glow-far))" fill-opacity="1.00"/><circle cx="42.44" cy="34.40" r="2.47" fill="color-mix(in srgb, var(--glow-near) 79%, var(--glow-far))" fill-opacity="1.00"/><circle cx="65.61" cy="56.11" r="2.49" fill="color-mix(in srgb, var(--glow-near) 81%, var(--glow-far))" fill-opacity="1.00"/><circle cx="40.11" cy="62.99" r="2.51" fill="color-mix(in srgb, var(--glow-near) 82%, var(--glow-far))" fill-opacity="1.00"/><circle cx="60.48" cy="43.54" r="2.62" fill="color-mix(in srgb, var(--glow-near) 90%, var(--glow-far))" fill-opacity="1.00"/><circle cx="53.18" cy="38.20" r="2.62" fill="color-mix(in srgb, var(--glow-near) 91%, var(--glow-far))" fill-opacity="1.00"/><circle cx="37.86" cy="50.29" r="2.63" fill="color-mix(in srgb, var(--glow-near) 91%, var(--glow-far))" fill-opacity="1.00"/><circle cx="53.29" cy="61.15" r="2.64" fill="color-mix(in srgb, var(--glow-near) 91%, var(--glow-far))" fill-opacity="1.00"/><circle cx="43.90" cy="42.06" r="2.67" fill="color-mix(in srgb, var(--glow-near) 94%, var(--glow-far))" fill-opacity="1.00"/><circle cx="58.06" cy="53.05" r="2.69" fill="color-mix(in srgb, var(--glow-near) 95%, var(--glow-far))" fill-opacity="1.00"/><circle cx="44.93" cy="56.47" r="2.70" fill="color-mix(in srgb, var(--glow-near) 96%, var(--glow-far))" fill-opacity="1.00"/><circle cx="50.06" cy="48.37" r="2.75" fill="color-mix(in srgb, var(--glow-near) 100%, var(--glow-far))" fill-opacity="1.00"/><path d="M91.72 38.04 L91.92 39.08 L91.94 40.16 L91.78 41.29 L91.45 42.46 L90.93 43.65 L90.24 44.88 L89.38 46.12 L88.35 47.39 L87.16 48.66 L85.80 49.94 L84.30 51.22 L82.64 52.50 L80.85 53.76 L78.92 55.01 L76.87 56.24 L74.71 57.44 L72.44 58.61 L70.07 59.74 L67.62 60.83 L65.09 61.87 L62.50 62.86 L59.85 63.80 L57.16 64.68 L54.44 65.50 L51.71 66.24 L48.96 66.92 L46.22 67.53 L43.49 68.06 L40.80 68.52 L38.14 68.89 L35.53 69.19 L32.99 69.40 L30.52 69.53 L28.13 69.58 L25.83 69.54 L23.64 69.42 L21.56 69.21 L19.61 68.92 L17.78 68.56 L16.09 68.11 L14.55 67.58 L13.16 66.98 L11.92 66.31 L10.85 65.57 L9.95 64.76 L9.22 63.88 L8.66 62.95 L8.28 61.96" fill="none" stroke="var(--glow-near)" stroke-width="3.2" stroke-linecap="round"/><circle cx="8.07" cy="59.69" r="6.2" fill="var(--glow-ideas)"/><circle cx="80.14" cy="31.03" r="6.2" fill="var(--glow-work)"/><circle cx="69.75" cy="59.89" r="6.2" fill="var(--glow-family)"/></svg>Eden</a>
   <div class="notch">
-    <nav aria-label="Sections"><a href="#split">The split</a><a href="#how">How it works</a><a href="#get">Get Eden</a><a href="support.html">Support</a></nav>
+    <nav aria-label="Sections"><a href="#split">The split</a><a href="#how">How it works</a><a href="#get">Get Eden</a><a href="#pricing">Pricing</a><a href="support.html">Support</a></nav>
     <div class="stylesw" role="radiogroup" aria-label="Site style"><button type="button" role="radio" data-style="classic" aria-checked="false" tabindex="-1">Classic</button><button type="button" role="radio" data-style="retro" aria-checked="true" tabindex="0">Retro</button></div>
     <button class="snd" type="button" id="snd" aria-pressed="false" hidden><i></i><span>SOUND</span></button>
     <a class="key small" href="https://app.eden360.in">Open Eden</a>
@@ -660,10 +673,28 @@
     </div>
   </section>
 
+  <section id="pricing" aria-labelledby="pricing-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="spec"><span class="idx">[05]</span> Pricing</p>
+        <h2 id="pricing-title"><span data-promo>Free during early access.</span><span data-after hidden>Eden is free to use.</span></h2>
+        <p class="sub" data-promo>Until 30 November 2026. Every feature, no limits, while we build.</p>
+      </div>
+      <div class="plan">
+        <p class="spec"><span>Plan 01</span><i data-promo>Early access</i></p>
+        <h3>Free</h3>
+        <p class="price"><b>₹0</b><span data-promo>until 30 Nov 2026</span></p>
+        <ul><li>Every feature</li><li>Every device, one account</li><li>Export or delete everything, any time</li><li data-promo>No limits while we build</li></ul>
+        <div class="row"><a class="key" href="https://app.eden360.in">Open Eden</a><a class="key cream" href="#get">Get Eden</a></div>
+      </div>
+      <script>if (Date.now() >= new Date(2026, 10, 31).getTime()) { document.querySelectorAll('[data-promo]').forEach((e) => { e.hidden = true; }); document.querySelectorAll('[data-after]').forEach((e) => { e.hidden = false; }); }</script>
+    </div>
+  </section>
+
   <section id="privacy" aria-labelledby="privacy-title">
     <div class="wrap privacy">
       <div class="sec-head">
-        <p class="spec"><span class="idx">[05]</span> Privacy, in plain words</p>
+        <p class="spec"><span class="idx">[06]</span> Privacy, in plain words</p>
         <h2 id="privacy-title">Your second brain is yours.</h2>
         <p class="sub">The full text is short too: <a href="privacy.html">privacy policy</a> and <a href="terms.html">terms of use</a>.</p>
       </div>
