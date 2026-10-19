@@ -137,6 +137,14 @@
   @media (min-width: 900px) { .cap-grid.three { grid-template-columns: repeat(3, 1fr); } }
   .cap .tag { justify-self: start; padding: 3px 10px; border-radius: 999px; background: var(--surface2); font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
   .get { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  /* Phones: the header menu is hidden, so a row of section links sits under the hero. */
+  .jump { display: none; }
+  @media (max-width: 760px) {
+    .jump { display: block; padding: 8px 0 4px; }
+    .jump .wrap { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .jump .wrap::-webkit-scrollbar { display: none; }
+    .jump a { flex: none; min-height: 40px; display: inline-flex; align-items: center; padding: 0 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text); text-decoration: none; font-size: 14px; font-weight: 600; white-space: nowrap; }
+  }
   .card { display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: 24px; background: var(--surface); border: 1px solid var(--border); }
   .card h3 { margin: 0; font-size: 22px; font-weight: 800; }
   .card p { margin: 0; color: var(--muted); font-size: 15px; flex: 1; }
@@ -232,6 +240,8 @@
       <button type="button" id="filmToggle" hidden aria-label="Pause the video"><svg viewBox="0 0 16 16" aria-hidden="true"><path id="filmIcon" d="M4 2h3v12H4zM9 2h3v12H9z"/></svg></button>
     </figure>
   </div>
+
+  <nav class="jump" aria-label="Sections on this page"><div class="wrap"><a href="#features">Features</a><a href="#soon">Coming soon</a><a href="#how">How it works</a><a href="#get">Get Eden</a><a href="#pricing">Pricing</a><a href="#privacy">Privacy</a></div></nav>
 
   <section id="people" aria-labelledby="people-title">
     <div class="wrap">

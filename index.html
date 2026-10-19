@@ -243,6 +243,14 @@
   .sec-head { display: grid; gap: 10px; margin-bottom: 44px; max-width: 760px; }
   .sec-head h2 { font-size: calc(clamp(34px, 4.6vw, 60px) * var(--ds)); line-height: 1.02; margin: 0; }
   .sec-head p.sub { color: var(--muted); margin: 0; font-size: 18px; }
+  /* Phones: the header menu is hidden, so a row of section links sits under the hero. */
+  .jump { display: none; }
+  @media (max-width: 900px) {
+    .jump { display: block; padding: 8px 0 4px; }
+    .jump .wrap { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .jump .wrap::-webkit-scrollbar { display: none; }
+    .jump a { flex: none; min-height: 40px; display: inline-flex; align-items: center; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--text); text-decoration: none; font-size: 14px; font-weight: 600; white-space: nowrap; }
+  }
   /* Features and Coming soon: small spec cards in a wrapping grid. */
   .cap-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
   .cap { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; display: grid; gap: 6px; align-content: start; }
@@ -492,6 +500,8 @@
       </div>
     </div>
   </div>
+
+  <nav class="jump" aria-label="Sections on this page"><div class="wrap"><a href="#features">Features</a><a href="#soon">Coming soon</a><a href="#how">How it works</a><a href="#get">Get Eden</a><a href="#pricing">Pricing</a><a href="#privacy">Privacy</a></div></nav>
 
   <section id="split" aria-labelledby="split-title">
     <div class="wrap">
