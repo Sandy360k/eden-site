@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f3eedf"/>
+      <stop offset="1" stop-color="#d8ccb0"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cdefb0"/>
+      <stop offset="1" stop-color="#8dbb4e"/>
+    </linearGradient>
+  </defs>
+  <!-- cream hardware plate -->
+  <rect x="40" y="40" width="944" height="944" rx="220" fill="url(#plate)" stroke="#b7a886" stroke-width="14"/>
+  <!-- screws -->
+  <g fill="#b7a886">
+    <circle cx="136" cy="136" r="34"/><circle cx="888" cy="136" r="34"/>
+    <circle cx="136" cy="888" r="34"/><circle cx="888" cy="888" r="34"/>
+  </g>
+  <g stroke="#6b6352" stroke-width="12" stroke-linecap="round">
+    <path d="M118 118l36 36"/><path d="M870 154l36-36"/>
+    <path d="M118 906l36-36"/><path d="M870 870l36 36"/>
+  </g>
+  <!-- dark rack module -->
+  <rect x="188" y="188" width="648" height="648" rx="84" fill="#18231a" stroke="#0a0f0b" stroke-width="12"/>
+  <!-- the gate: lit arch, two doors -->
+  <path d="M322 770V440a190 190 0 0 1 380 0V770Z" fill="url(#glow)"/>
+  <path d="M322 770V440a190 190 0 0 1 380 0V770Z" fill="none" stroke="#0e1710" stroke-width="0"/>
+  <rect x="496" y="250" width="32" height="520" fill="#18231a"/>
+  <!-- door handles -->
+  <rect x="440" y="560" width="22" height="80" rx="11" fill="#18231a"/>
+  <rect x="562" y="560" width="22" height="80" rx="11" fill="#18231a"/>
+  <!-- LED -->
+  <circle cx="762" cy="762" r="30" fill="#a3d977"/>
+</svg>
