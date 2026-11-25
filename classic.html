@@ -7,7 +7,7 @@
       const q = new URLSearchParams(location.search), asked = q.get('style');
       let s = asked === 'classic' || asked === 'retro' ? asked : null, kept = false;
       try { if (s) { localStorage.setItem(key, s); kept = true; } else s = localStorage.getItem(key); } catch (e) {}
-      if (s !== 'classic' && s !== 'retro') s = 'retro';
+      if (s !== 'classic' && s !== 'retro') s = 'classic';
       document.documentElement.dataset.style = s;
       if (s !== page) {
         document.documentElement.style.visibility = 'hidden';
@@ -23,7 +23,7 @@
     go();
     // Back to a page kept in the back/forward cache after switching: follow the choice made since.
     addEventListener('pageshow', (e) => { if (e.persisted) go(); });
-  })("classic", {"classic":"classic.html","retro":"./"}, "eden.site.style");</script>
+  })("classic", {"classic":"./","retro":"retro.html"}, "eden.site.style");</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Eden: Second Brain: Say it once. Eden remembers it at the right place and time.</title>
 <meta name="description" content="Talk the way you think. Eden splits what you say into small Seeds, links each one to the people, places and projects it is about, and brings it back when it matters.">
@@ -208,7 +208,7 @@
 
   footer { border-top: 1px solid var(--border); padding: 32px 0 48px; color: var(--muted); font-size: 15px; }
   .foot { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; }
-  .foot nav { display: flex; margin-left: auto; gap: 20px; }
+  .foot nav { display: flex; flex-wrap: wrap; margin-left: auto; gap: 8px 20px; }
   @media (max-width: 760px) { .foot nav { margin-left: 0; width: 100%; } }
 </style>
 </head>
@@ -486,6 +486,6 @@
         next.focus(); pick(next.dataset.style);
       });
     });
-  })("classic", {"classic":"classic.html","retro":"./"}, "eden.site.style");</script>
+  })("classic", {"classic":"./","retro":"retro.html"}, "eden.site.style");</script>
 </body>
 </html>
